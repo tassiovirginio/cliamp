@@ -89,3 +89,28 @@ else
 fi
 
 echo "Installed cliamp to ${INSTALL_DIR}/cliamp"
+
+# Create .desktop entry for desktop environments
+DESKTOP_DIR="${HOME}/.local/share/applications"
+ICONS_DIR="${HOME}/.local/share/icons/hicolor/256x256/apps"
+mkdir -p "$DESKTOP_DIR"
+mkdir -p "$ICONS_DIR"
+
+# Copy icon
+cp site/favicon.svg "${ICONS_DIR}/cliamp.svg"
+
+DESKTOP_FILE="${DESKTOP_DIR}/cliamp.desktop"
+cat > "$DESKTOP_FILE" << EOF
+[Desktop Entry]
+Name=Cliamp TUI
+Comment=A retro terminal music player
+Exec=cliamp
+Terminal=true
+Type=Application
+Categories=Audio;Music;AudioVideo;
+Keywords=music;player;audio;
+StartupNotify=true
+Icon=cliamp
+EOF
+
+echo "Created desktop entry at ${DESKTOP_FILE}"
